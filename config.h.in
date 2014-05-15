@@ -1,0 +1,13 @@
+// Copyright (c) 2014 Wenbin He. All rights reserved.
+// Use of this source code is governed by a MIT-style license that can be
+// found in the LICENSE file.
+
+#ifndef CONFIG_H_
+#define CONFIG_H_
+
+// A set of macros to use for platform detection.
+#cmakedefine OS_LINUX
+#cmakedefine OS_MACOSX
+#cmakedefine OS_WIN
+
+#endif  // CONFIG_H_
