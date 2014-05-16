@@ -4,5 +4,13 @@
 
 #include "core/float_array.h"
 
+#include "core/typed_array_impl.h"
+
 namespace itl {
+
+template class internal::TypedArray<float>;
+
+FloatArray::FloatArray(size_t tuple_number)
+    : internal::TypedArray<float>(tuple_number) {}
+
 }  // namespace itl

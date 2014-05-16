@@ -3,4 +3,5 @@
 # found in the LICENSE file.
 
 # Add the io library to the project.
-add_library (itl_io console.cc)
+add_library (itl_io console.cc raw_reader.cc)
+target_link_libraries (itl_io itl_core)

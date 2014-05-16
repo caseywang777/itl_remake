@@ -2,10 +2,12 @@
 // Use of this source code is governed by a MIT-style license that can be
 // found in the LICENSE file.
 
-#include "core/abstract_array.h"
+#include "core/field.h"
 
 namespace itl {
 
-AbstractArray::~AbstractArray() = default;
+Field::Field() = default;
+
+Field::~Field() = default;
 
 }  // namespace itl

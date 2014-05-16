@@ -2,10 +2,10 @@
 // Use of this source code is governed by a MIT-style license that can be
 // found in the LICENSE file.
 
-#include "core/abstract_array.h"
+#include "core/grid.h"
 
 namespace itl {
 
-AbstractArray::~AbstractArray() = default;
+Grid::~Grid() = default;
 
 }  // namespace itl

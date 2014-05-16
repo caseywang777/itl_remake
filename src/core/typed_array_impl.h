@@ -9,6 +9,18 @@
 
 namespace itl {
 namespace internal {
+
+template <typename Type>
+Type* TypedArray<Type>::data() { return data_.get(); }
+
+template <typename Type>
+const Type* TypedArray<Type>::data() const { return data_.get(); }
+
+template <typename Type>
+TypedArray<Type>::TypedArray(const size_t tuple_number)
+    : AbstractArray(), tuple_number_(tuple_number),
+      data_(new Type[tuple_number]) {}
+
 }  // namespace internal
 }  // namespace itl
 

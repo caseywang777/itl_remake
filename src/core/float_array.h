@@ -9,7 +9,10 @@
 
 namespace itl {
 
-class CORE_EXPORT FloatArray : public internal::TypedArray<float> {};
+class CORE_EXPORT FloatArray : public internal::TypedArray<float> {
+ public:
+  explicit FloatArray(size_t tuple_number);
+};
 
 }  // namespace itl
 

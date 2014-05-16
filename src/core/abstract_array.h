@@ -11,10 +11,12 @@ namespace itl {
 
 class CORE_EXPORT AbstractArray {
  public:
-  virtual ~AbstractArray() = default;
+  virtual ~AbstractArray();
 
  protected:
   AbstractArray() = default;
+
+ private:
   AbstractArray(const AbstractArray& rhs) = delete;
   AbstractArray& operator=(const AbstractArray& rhs) = delete;
 };

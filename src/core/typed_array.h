@@ -15,6 +15,13 @@ namespace internal {
 
 template <typename Type>
 class CORE_EXPORT TypedArray : public AbstractArray {
+ public:
+  Type* data();
+  const Type* data() const;
+
+ protected:
+  explicit TypedArray(size_t tuple_number);
+
  private:
   size_t tuple_number_ = 0, tuple_size_ = 1;
   std::unique_ptr<Type[]> data_;
