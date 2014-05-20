@@ -3,6 +3,7 @@
 
 #include "mpi.h"
 #include "diy.h"
+#include "io/console.h"
 
 int Paritl_Init(int dim, int num_threads, MPI_Comm comm);
 
