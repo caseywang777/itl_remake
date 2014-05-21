@@ -3,7 +3,8 @@
 
 #include "mpi.h"
 #include "diy.h"
-#include "io/console.h"
+
+namespace itl {
 
 int Paritl_Init(int dim, int num_threads, MPI_Comm comm);
 
@@ -34,7 +35,10 @@ int Paritl_Decompose(int block_order, int *data_size, int glo_num_blocks,
 		  int *given, int wrap);
 
 
-int Patitl_Read_data_all(int did, char **file_names, DIY_Datatype var_type, void** buffer);
+int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_size, bool with_header);
 
 int Paritl_Finalize();
+
+}  // namespace itl
+
 #endif

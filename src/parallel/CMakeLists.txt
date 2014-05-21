@@ -24,3 +24,7 @@ link_directories (${DIY_LIBRARIES})
 # Add the core library to the project.
 add_library (itl_parallel ParItl.cc)
 target_link_libraries (itl_parallel itl_core itl_io diy)
+
+# Add executable.
+add_executable (Block_io test/Block_io.cc)
+target_link_libraries (Block_io itl_parallel)
