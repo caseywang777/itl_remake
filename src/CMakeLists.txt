@@ -6,3 +6,5 @@
 add_subdirectory (core)
 add_subdirectory (io)
 add_subdirectory (math)
+add_subdirectory (stat)
+add_subdirectory (algorithm)

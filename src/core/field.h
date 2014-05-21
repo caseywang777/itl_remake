@@ -36,6 +36,11 @@ class CORE_EXPORT Field {
     return *this;
   }
 
+  double value_at_point(size_t i, size_t j, size_t k, size_t vi = 0,
+                        size_t ei = 0) {
+    return variables_[vi]->element(grid_->Index3DTo1D(i, j, k), ei);
+  }
+
  private:
   Field(const Field& rhs) = delete;
   Field& operator=(const Field& rhs) = delete;
