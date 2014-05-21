@@ -31,7 +31,9 @@ int main(int argc, char **argv)
 //fprintf(stdout,"2\n");
   did = Paritl_Decompose(ROUND_ROBIN_ORDER, data_size, tot_blocks, &nblocks, 1, ghost, given, 0);
 //fprintf(stdout,"3\n");
-  Paritl_Read_data_all(did,infiles,kFloat,1,false);
+  Paritl_Read_data_all(did,infiles,kInt32,1,false);
+  Paritl_ComputeHistogram(0,1000);
+  Paritl_WriteHistogram();
   Paritl_Finalize();
   MPI_Finalize();
   //fprintf(stdout,"4\n");

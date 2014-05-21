@@ -37,6 +37,10 @@ int Paritl_Decompose(int block_order, int *data_size, int glo_num_blocks,
 
 int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_size, bool with_header);
 
+int Paritl_ComputeHistogram(double min, double max);
+
+int Paritl_WriteHistogram();
+
 int Paritl_Finalize();
 
 }  // namespace itl
