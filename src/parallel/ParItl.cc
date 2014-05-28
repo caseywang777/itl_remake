@@ -1,5 +1,8 @@
-#include "ParItl.h"
+// Copyright (c) 2014 Kewei Lu. All rights reserved.
+// Use of this source code is governed by a MIT-style license that can be
+// found in the LICENSE file.
 
+#include "ParItl.h"
 #include "algorithm/hist.h"
 #include "core/abstract_array.h"
 #include "core/basic_types.h"
@@ -10,7 +13,6 @@
 #include "io/console.h"
 #include "stat/bins.h"
 #include "stat/histogram.h"
-
 #include <stdio.h>
 #include <memory>
 #include <vector>
@@ -70,17 +72,12 @@ int Paritl_Decompose(int block_order, int *data_size, int glo_num_blocks,
 
 int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_size, bool with_header)
 {
-  //fprintf(stdout,"1\n");
   fields = new Field[nblocks];
-//fprintf(stdout,"2\n");
-  // if (with_header)
-  //   BIL_Set_io_header_size(12);
+  //if (with_header)
+  //  BIL_Set_io_header_size(12);
 
   if (var_type == kFloat) {
       float **data = new float *[nblocks];
-      //fprintf(stdout,"3\n");
-      MPI_Datatype bil_datatype;
-      MPI_Type_contiguous(tuple_size, MPI_FLOAT, &bil_datatype);
       int block_min[4], block_size[4]; // block extents
       for (int i = 0; i < nblocks; i++)
       {
@@ -90,21 +87,15 @@ int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_siz
         Grid* grid = new CartesianGrid(block_size[0], block_size[1], block_size[2]);
         fields[i].set_grid(grid);
       }
-      //fprintf(stdout,"4\n");
       DIY_Read_data_all(did, file_names, DIY_FLOAT, (void **)data, 0);
-//fprintf(stdout,"5\n");
       for (int i = 0; i < nblocks; ++i) {
         AbstractArray* array = new FloatArray(block_size[0] * block_size[1] * block_size[2], tuple_size, data[i]);
         fields[i].attach_variable(array);
       }
-//fprintf(stdout,"6\n");
       MPI_Barrier(MPI_COMM_WORLD);
       MPI_Type_free(&bil_datatype);
     } else if (var_type == kInt32) {
       int32_t **data = new int32_t *[nblocks];
-      //fprintf(stdout,"3\n");
-      MPI_Datatype bil_datatype;
-      MPI_Type_contiguous(tuple_size, MPI_FLOAT, &bil_datatype);
       int block_min[4], block_size[4]; // block extents
       for (int i = 0; i < nblocks; i++)
       {
@@ -114,14 +105,12 @@ int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_siz
         Grid* grid = new CartesianGrid(block_size[0], block_size[1], block_size[2]);
         fields[i].set_grid(grid);
       }
-      //fprintf(stdout,"4\n");
       DIY_Read_data_all(did, file_names, DIY_INT, (void **)data, 0);
-//fprintf(stdout,"5\n");
+
       for (int i = 0; i < nblocks; ++i) {
         AbstractArray* array = new Int32Array(block_size[0] * block_size[1] * block_size[2], tuple_size, data[i]);
         fields[i].attach_variable(array);
       }
-//fprintf(stdout,"6\n");
       MPI_Barrier(MPI_COMM_WORLD);
       MPI_Type_free(&bil_datatype);
     } else {

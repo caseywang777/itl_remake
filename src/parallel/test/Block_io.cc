@@ -1,3 +1,7 @@
+// Copyright (c) 2014 Kewei Lu. All rights reserved.
+// Use of this source code is governed by a MIT-style license that can be
+// found in the LICENSE file.
+
 #include "parallel/ParItl.h"
 #include "core/basic_types.h"
 
@@ -24,18 +28,14 @@ int main(int argc, char **argv)
     assert(thread_level == MPI_THREAD_FUNNELED);
   } else
   MPI_Init(&argc, &argv);
-  //fprintf(stdout,"1\n");
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
   Paritl_Init(dim,num_threads,MPI_COMM_WORLD);
-//fprintf(stdout,"2\n");
   did = Paritl_Decompose(ROUND_ROBIN_ORDER, data_size, tot_blocks, &nblocks, 1, ghost, given, 0);
-//fprintf(stdout,"3\n");
   Paritl_Read_data_all(did,infiles,kInt32,1,false);
   Paritl_ComputeHistogram(0,1000);
   Paritl_WriteHistogram();
   Paritl_Finalize();
   MPI_Finalize();
-  //fprintf(stdout,"4\n");
   return 0;
 }
