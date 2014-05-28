@@ -5,7 +5,7 @@
 cmake_minimum_required (VERSION 2.8)
 
 # Set the project's name.
-project (MAGI)
+project (ITL)
 
 # Tell the compiler to use C++11.
 if (UNIX)
@@ -31,7 +31,8 @@ endif ()
 # Provide options that the user can optionally select.
 option (BUILD_SHARED_LIBS "Build into shared libraries." OFF)
 
-option (MAGI_BUILD_TESTS "Build the test programs." OFF)
+option (ITL_BUILD_EXAMPLES "Build the example programs." OFF)
+option (ITL_BUILD_TESTS "Build the test programs." OFF)
 
 # Make the configuration file.
 configure_file ("${PROJECT_SOURCE_DIR}/config.h.in"
@@ -43,8 +44,14 @@ include_directories ("${PROJECT_SOURCE_DIR}/src")
 # Add the src subdirectory to the build.
 add_subdirectory (src)
 
-# If MAGI_BUILD_TESTS is on, enable testing.
-if (MAGI_BUILD_TESTS)
+# If ITL_BUILD_EXAMPLES is on, enable testing.
+if (ITL_BUILD_EXAMPLES)
+  enable_testing ()
+  add_subdirectory (examples)
+endif ()
+
+# If ITL_BUILD_TESTS is on, enable testing.
+if (ITL_BUILD_TESTS)
   enable_testing ()
   add_subdirectory (test)
 endif ()
