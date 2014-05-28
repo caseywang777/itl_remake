@@ -1,3 +1,7 @@
+// Copyright (c) 2014 Kewei Lu. All rights reserved.
+// Use of this source code is governed by a MIT-style license that can be
+// found in the LICENSE file.
+
 #ifndef _PARITL
 #define _PARITL
 
@@ -6,6 +10,14 @@
 
 namespace itl {
 
+/*
+  Initialize Paritl
+  dim: number of dimension
+  num_threads: number of threads used, currently we are not using multiple threads
+  comm: MPI communicator
+
+  returns: error code
+*/
 int Paritl_Init(int dim, int num_threads, MPI_Comm comm);
 
 /*
@@ -34,13 +46,36 @@ int Paritl_Decompose(int block_order, int *data_size, int glo_num_blocks,
 		  int *loc_num_blocks, int share_face, int *ghost, 
 		  int *given, int wrap);
 
+/*
+  Parallel data read for all blocks using DIY, create a field object for each block
+  
+  did: domain id
+  file_names: input file names
+  var_type: input datatype
+  tuple_size: how many values for each grid point
+  with_header: has header in the beginning or not
 
+  note: performs an MPI_Barrier afterwards to eliminate any process
+  skew before proceeding
+
+*/
 int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_size, bool with_header);
 
+/*
+  Parallel compute histogram for each block
+  min: minimum value
+  max: maximum value
+*/
 int Paritl_ComputeHistogram(double min, double max);
 
+/*
+  Parallel write the histogram to file
+*/
 int Paritl_WriteHistogram();
 
+/*
+  Finalize Paritl
+*/
 int Paritl_Finalize();
 
 }  // namespace itl
