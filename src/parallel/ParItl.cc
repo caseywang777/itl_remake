@@ -93,7 +93,6 @@ int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_siz
         fields[i].attach_variable(array);
       }
       MPI_Barrier(MPI_COMM_WORLD);
-      MPI_Type_free(&bil_datatype);
     } else if (var_type == kInt32) {
       int32_t **data = new int32_t *[nblocks];
       int block_min[4], block_size[4]; // block extents
@@ -112,7 +111,6 @@ int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_siz
         fields[i].attach_variable(array);
       }
       MPI_Barrier(MPI_COMM_WORLD);
-      MPI_Type_free(&bil_datatype);
     } else {
       Console::Warn("RawReader::LoadData() given unsupported data type.");
     }
@@ -130,7 +128,46 @@ int Paritl_ComputeHistogram(double min, double max)
   }
 }
 
-int Paritl_WriteHistogram()
+int Paritl_WriteHistogram(char* filename)
+{
+  MPI_File fd;
+  MPI_Status status;
+  int* allNumBlocks = new int[nprocs];
+  int myNumValues;
+  int offset;
+  int numBins=32;
+  MPI_Allgather(&nblocks, 1, MPI_INT, allNumBlocks, 1, MPI_INT, MPI_COMM_WORLD);
+  if(rank==0)
+  {
+    for(int i=0;i<nprocs;i++)
+      fprintf(stdout,"%d ",allNumBlocks[i]);
+  }
+  //first integer indicates the number of bins for each histogram
+  offset=1;  
+  myNumValues=0;
+  myNumValues=allNumBlocks[rank]*(numBins+1);
+  for(int j=1;j<rank;j++)
+  {
+    offset=offset+allNumBlocks[j-1]*(numBins+1);
+  }
+  assert(MPI_File_open(MPI_COMM_WORLD, filename, MPI_MODE_CREATE|MPI_MODE_WRONLY, MPI_INFO_NULL, &fd) == MPI_SUCCESS);
+  float* values = new float[nblocks*(numBins+1)];
+  for (int i = 0; i < nblocks; i++)
+  {
+    //first value record the block id
+    values[i*(numBins+1)]=(float)(DIY_Gid(0,i)); 
+    for (size_t j = 1; j < numBins+1; j++) {
+      values[i*(numBins+1)+j]=hists[i].get_frequency(j);
+    }
+  }
+  if(rank==0)
+    assert(MPI_File_write(fd, &numBins, 1, MPI_INT, &status) == MPI_SUCCESS);
+  MPI_File_set_view(fd,offset,MPI_FLOAT,MPI_FLOAT,"native",MPI_INFO_NULL);
+  MPI_File_write(fd,values,myNumValues,MPI_FLOAT, &status);
+  MPI_File_close(&fd);
+}
+
+int Paritl_DistributedWriteHistogram()
 {
   char buffer[50];
   sprintf(buffer, "./%d.off", rank);
