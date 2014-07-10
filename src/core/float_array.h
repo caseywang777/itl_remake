@@ -1,4 +1,4 @@
-// Copyright (c) 2014 The ITLREMAKE Authors. All rights reserved.
+// Copyright (c) 2014 Wenbin He. All rights reserved.
 // Use of this source code is governed by a MIT-style license that can be
 // found in the LICENSE file.
 
@@ -10,13 +10,14 @@
 
 namespace itl {
 
-class CORE_EXPORT FloatArray : public TypedArray<float> {
+class CORE_EXPORT FloatArray : public internal::TypedArray<float> {
  public:
   FloatArray();
-  explicit FloatArray(const size_t tuple_number);
-  FloatArray(const size_t tuple_number, const size_t tuple_size);
-  FloatArray(const size_t tuple_number, const size_t tuple_size,
-             float* data);
+  explicit FloatArray(size_t tuple_number);
+  FloatArray(size_t tuple_number, float* data);
+  FloatArray(size_t tuple_number, size_t tuple_size);
+  FloatArray(size_t tuple_number, size_t tuple_size, float* data);
+
   virtual ~FloatArray();
 
   virtual int DataType() const { return kFloat; }
@@ -25,8 +26,8 @@ class CORE_EXPORT FloatArray : public TypedArray<float> {
   float DataTypeMax() const { return kFloatMax; }
 
  private:
-  FloatArray(const FloatArray&) = delete;
-  FloatArray& operator=(const FloatArray&) = delete;
+  FloatArray(const FloatArray& rhs) = delete;
+  FloatArray& operator=(const FloatArray& rhs) = delete;
 };
 
 }  // namespace itl

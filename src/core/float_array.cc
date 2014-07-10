@@ -1,4 +1,4 @@
-// Copyright (c) 2014 The ITLREMAKE Authors. All rights reserved.
+// Copyright (c) 2014 Wenbin He. All rights reserved.
 // Use of this source code is governed by a MIT-style license that can be
 // found in the LICENSE file.
 
@@ -8,22 +8,21 @@
 
 namespace itl {
 
-template class TypedArray<float>;
+template class internal::TypedArray<float>;
 
 FloatArray::FloatArray() = default;
 
-FloatArray::FloatArray(const size_t tuple_number)
-    : TypedArray<float>(tuple_number) {
-}
+FloatArray::FloatArray(size_t tuple_number)
+    : internal::TypedArray<float>(tuple_number) {}
 
-FloatArray::FloatArray(const size_t tuple_number, const size_t tuple_size)
-    : TypedArray<float>(tuple_number, tuple_size) {
-}
+FloatArray::FloatArray(size_t tuple_number, float* data)
+    : internal::TypedArray<float>(tuple_number, data) {}
 
-FloatArray::FloatArray(const size_t tuple_number, const size_t tuple_size,
-                       float* data)
-    : TypedArray<float>(tuple_number, tuple_size, data) {
-}
+FloatArray::FloatArray(size_t tuple_number, size_t tuple_size)
+    : internal::TypedArray<float>(tuple_number, tuple_size) {}
+
+FloatArray::FloatArray(size_t tuple_number, size_t tuple_size, float* data)
+    : internal::TypedArray<float>(tuple_number, tuple_size, data) {}
 
 FloatArray::~FloatArray() = default;
 
