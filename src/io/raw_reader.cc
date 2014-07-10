@@ -8,6 +8,8 @@
 #include "core/cartesian_grid.h"
 #include "core/field.h"
 #include "core/float_array.h"
+#include "core/double_array.h"
+#include "core/int32_array.h"
 #include "io/console.h"
 
 namespace itl {
@@ -48,6 +50,15 @@ std::unique_ptr<Field> RawReader::LoadData(
         fread(static_cast<FloatArray*>(array.get())->data(),
               sizeof(float), data_size, file);
         break;
+      case kDouble:
+        array.reset(new DoubleArray(data_size));
+        fread(static_cast<DoubleArray*>(array.get())->data(),
+              sizeof(double), data_size, file);
+        break;
+      case kInt32:
+        array.reset(new Int32Array(data_size));
+        fread(static_cast<Int32Array*>(array.get())->data(),
+              sizeof(int32_t), data_size, file);
       default:
         Console::Warn("RawReader::LoadData() given unsupported data type.");
     }
