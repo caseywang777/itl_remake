@@ -69,9 +69,14 @@ int Paritl_Read_data_all(int did, char **file_names, int var_type, int tuple_siz
 int Paritl_ComputeHistogram(double min, double max);
 
 /*
-  Parallel write the histogram to file
+  Parallel write the histogram to a single file
 */
-int Paritl_WriteHistogram();
+int Paritl_WriteHistogram(char* filename);
+
+/*
+  Parallel write the histogram to different files
+*/
+int Paritl_DistributedWriteHistogram();
 
 /*
   Finalize Paritl
