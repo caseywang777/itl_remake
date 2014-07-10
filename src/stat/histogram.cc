@@ -5,6 +5,7 @@
 #include "stat/histogram.h"
 
 #include <cassert>
+#include <cmath>
 #include <algorithm>
 #include <limits>
 #include <numeric>
@@ -117,6 +118,19 @@ Histogram& Histogram::operator-=(const Histogram& rhs) {
   for (size_t i = 0, il = frequencies_.size(); i < il; ++i)
     frequencies_[i] = std::max(frequencies_[i] - rhs.frequencies()[i], 0.0f);
   return *this;
+}
+
+double Histogram::Entropy() {
+  Normalize();
+  const double epsilon = std::numeric_limits<double>::epsilon();
+  double entropy = 0.0;
+  double log2 = std::log(2);
+  for (const float& probability : frequencies_) {
+    if (std::abs(probability) > epsilon) {
+      entropy -= probability * std::log(probability) / log2;
+    }
+  }
+  return entropy;
 }
 
 }  // namespace itl

@@ -56,6 +56,8 @@ class STAT_EXPORT Histogram {
   Histogram& operator+=(const Histogram& rhs);
   Histogram& operator-=(const Histogram& rhs);
 
+  double Entropy();
+
  private:
   Histogram() = delete;
 
