@@ -9,6 +9,7 @@
 #include "stat/sampler.h"
 #include "io/raw_reader.h"
 #include "algorithm/hist.h"
+#include "extras/pyplot.h"
 
 using namespace std;
 using namespace itl;
@@ -55,6 +56,8 @@ int main(int argc, char* argv[]) {
     fs << sample[i] << endl;
 
   fs.close();
+
+  plot(hist);
 
   return 0;
 }

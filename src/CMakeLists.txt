@@ -8,6 +8,7 @@ add_subdirectory (io)
 add_subdirectory (math)
 add_subdirectory (stat)
 add_subdirectory (algorithm)
+add_subdirectory (extras)
 
 option (ITL_BUILD_PARALLEL "Build the parallel library." OFF)
 
