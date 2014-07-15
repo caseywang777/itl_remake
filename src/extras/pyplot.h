@@ -11,7 +11,9 @@
 
 namespace itl {
 
-void plot(const Histogram& hist);
+void PyPlot(const Histogram& hist);
+
+void PyPlot(const double* data, size_t size);
 
 }  // namespace itl
 
