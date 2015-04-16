@@ -29,7 +29,7 @@ double ComputeEntropy(const Histogram& hist) {
 }
 
 double ComputeEntropy(Field* field, const std::shared_ptr<Bins> bins,
-               int* from, int* to) {
+                      int* from, int* to) {
   Histogram hist = ComputeHistogram(field, bins, from, to);
   return ComputeEntropy(hist);
 }

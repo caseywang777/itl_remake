@@ -17,22 +17,22 @@ using namespace itl;
 int main(int argc, char* argv[]) {
   RawReader* reader = new RawReader();
   reader->set_dimensions(atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
-  unique_ptr<Field> field(reader->LoadData({{argv[1], kDouble}}));
+  unique_ptr<Field> field(reader->LoadData({{argv[1], kFloat}}));
 
   shared_ptr<Bins> bins(new RegularBins(field->variable(0)->MinValue(),
                                         field->variable(0)->MaxValue(),
                                         256));
 
   int from[3] = {0, 0, 0}, to[3] = {10, 10, 10};
-  Histogram hist = ComputeHistogram(field.get(), bins, from, to);
+  Histogram hist = ComputeHistogram(field.get(), bins);
   hist.Normalize();
 
   cout << "Entropy is: " << hist.Entropy() << endl;
 
-  double* sample = new double[1000];
-  Sampler::Rejection(hist, 1.0, sample, sample + 1000);
+  // double* sample = new double[1000];
+  // Sampler::Rejection(hist, 1.0, sample, sample + 1000);
 
-  PyPlot(hist);
+  // PyPlot(hist);
 
   return 0;
 }

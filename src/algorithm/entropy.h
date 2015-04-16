@@ -18,7 +18,7 @@ class Histogram;
 double ComputeEntropy(const Histogram& hist);
 
 double ComputeEntropy(Field* field, const std::shared_ptr<Bins> bins,
-                      int* from, int* to);
+                      int* from = nullptr, int* to = nullptr);
 
 }  // namespace itl
 

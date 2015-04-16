@@ -19,6 +19,10 @@ class CORE_EXPORT Grid {
   size_t y_dim() const { return y_dim_; }
   size_t z_dim() const { return z_dim_; }
 
+  size_t x_bias() const { return x_bias_; }
+  size_t y_bias() const { return y_bias_; }
+  size_t z_bias() const { return z_bias_; }
+
   size_t Index3DTo1D(size_t i, size_t j, size_t k) const {
     return (k - z_bias_) * x_dim_ * y_dim_ + (j - y_bias_) * x_dim_ +
            (i - x_bias_);
